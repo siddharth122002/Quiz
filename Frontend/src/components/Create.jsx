@@ -37,7 +37,7 @@ const Create = () => {
     console.log(questions)
     e.preventDefault();
     try{
-      const {data} = await axios.post('http://localhost:3000/create',{
+      const {data} = await axios.post('https://quiz-backend-three-beta.vercel.app/create',{
         creator,
         title,
         questions,
