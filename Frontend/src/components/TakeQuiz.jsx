@@ -22,7 +22,7 @@ function TakeQuiz() {
     useEffect(() => {
         const getQuiz = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:3000/quizzes/${id}`);
+                const { data } = await axios.get(`https://quiz-backend-three-beta.vercel.app/quizzes/${id}`);
                 // console.log(data)
                 setQuiz(data);
             } catch (e) {
