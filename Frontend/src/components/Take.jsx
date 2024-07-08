@@ -16,7 +16,7 @@ function Take() {
   useEffect(()=>{
     const getQuizzes = async()=>{
       try{
-        const {data} = await axios.get('http://localhost:3000/quizzes')
+        const {data} = await axios.get('https://quiz-backend-three-beta.vercel.app/quizzes')
        
         setQuizzes(data)
       }catch(e){
