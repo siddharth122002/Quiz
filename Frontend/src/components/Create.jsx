@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Spinner from './Spinner'
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -19,6 +20,7 @@ const Create = () => {
   const navigate = useNavigate();
   const [creator, setCreator] = useState('');
   const [title, setTitle] = useState('');
+  const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([
     { questionText: '', options: ['', '', '', ''], correctAnswer: '' }
   ]);
@@ -34,15 +36,16 @@ const Create = () => {
   };
 
   const handleCreate = async(e) => {
-    console.log(questions)
+    
     e.preventDefault();
+    setLoading(true)
     try{
       const {data} = await axios.post('https://quiz-backend-three-beta.vercel.app/create',{
         creator,
         title,
         questions,
       })
-     
+      setLoading(false)
       if(data.success){
         navigate('/')
       }
@@ -52,8 +55,12 @@ const Create = () => {
   };
 
   return (
+    <>
+      {loading?(
+        <Spinner/>
+      ):(
+      
     <div className="min-h-screen py-10">
-
       <h1 className='text-white font-bold  text-5xl text-center p-4 create'>Create Quiz</h1>
       <form
       onSubmit={(e) => handleCreate(e)}
@@ -157,7 +164,9 @@ const Create = () => {
           </button>
         </div>
       </form>
-    </div>  
+    </div> 
+    )}
+    </> 
   );
 };
 
