@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import Spinner from './Spinner';
 
 function TakeQuiz() {
 
@@ -103,7 +104,7 @@ function TakeQuiz() {
                     )}
                 </div>
             ) : (
-                <p>Loading...</p>
+                <Spinner/>
             )}
         </div>
     );
