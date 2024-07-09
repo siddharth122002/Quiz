@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import Spinner from './Spinner';
 
 function Take() {
   useGSAP(()=>{
@@ -13,12 +14,15 @@ function Take() {
     })
   })
   const [quizzes,setQuizzes] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(()=>{
     const getQuizzes = async()=>{
+      setLoading(true)
       try{
         const {data} = await axios.get('https://quiz-backend-three-beta.vercel.app/quizzes')
        
         setQuizzes(data)
+        setLoading(false)
       }catch(e){
         console.log("errorrr",e);
       }
@@ -26,6 +30,10 @@ function Take() {
     getQuizzes()
   },[])
   return (
+    <>
+      {loading?(
+        <Spinner/>
+      ):(
     <div className="min-h-screen flex items-center justify-center  py-8">
       <div className="bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md box">
         <h1 className="text-3xl font-bold text-center text-white mb-6">Available Quizzes</h1>
@@ -42,7 +50,8 @@ function Take() {
         </ul>
       </div>
     </div>
-
+     )}
+    </>
   )
 }
 
